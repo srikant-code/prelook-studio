@@ -1,0 +1,8 @@
+{
+  "name": "Prelook Studio - Virtual Hairstylist",
+  "description": "A smart salon tool allowing customers to try on new hairstyles and edit their look using generative AI.",
+  "requestFramePermissions": [
+    "camera",
+    "geolocation"
+  ]
+}
