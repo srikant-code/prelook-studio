@@ -8,7 +8,20 @@ let ai: GoogleGenAI | null = null;
 
 const getAIClient = (): GoogleGenAI => {
   if (!ai) {
-    ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const apiKey =
+      (typeof import.meta !== "undefined" &&
+        (import.meta as any).env?.VITE_GEMINI_API_KEY) ||
+      (typeof import.meta !== "undefined" &&
+        (import.meta as any).env?.VITE_API_KEY) ||
+      (typeof process !== "undefined" && process.env?.GEMINI_API_KEY) ||
+      (typeof process !== "undefined" && process.env?.API_KEY) ||
+      "";
+    if (!apiKey || apiKey === "PLACEHOLDER_API_KEY") {
+      throw new Error(
+        "API key not configured. Please set VITE_GEMINI_API_KEY in your .env.local file",
+      );
+    }
+    ai = new GoogleGenAI({ apiKey });
   }
   return ai;
 };

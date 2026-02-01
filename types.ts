@@ -54,11 +54,12 @@ export interface HistorySession {
 }
 
 export enum AppView {
-  LANDING = 'LANDING',
-  PRICING = 'PRICING',
-  STUDIO = 'STUDIO',
-  DASHBOARD = 'DASHBOARD',
-  SALON_DASHBOARD = 'SALON_DASHBOARD'
+  LOGIN = "LOGIN",
+  LANDING = "LANDING",
+  PRICING = "PRICING",
+  STUDIO = "STUDIO",
+  DASHBOARD = "DASHBOARD",
+  SALON_DASHBOARD = "SALON_DASHBOARD",
 }
 
 export interface SalonService {

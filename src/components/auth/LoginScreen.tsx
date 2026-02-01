@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Scissors,
   ArrowRight,
@@ -13,14 +13,21 @@ import {
   Mail,
   Phone as PhoneIcon,
 } from "lucide-react";
-import { StorageService } from '../services/storage';
-import { User } from '../types';
+import { StorageService } from "../../../services/storage";
+import { User } from "../../types";
 
 interface LoginScreenProps {
-  onLogin: (name: string, email: string, phone: string, code?: string, type?: 'CUSTOMER' | 'PARTNER', avatar?: string) => void;
+  onLogin: (
+    name: string,
+    email: string,
+    phone: string,
+    code?: string,
+    type?: "CUSTOMER" | "PARTNER",
+    avatar?: string,
+  ) => void;
 }
 
-type LoginMode = 'CUSTOMER' | 'PARTNER';
+type LoginMode = "CUSTOMER" | "PARTNER";
 type AvatarGender = "MEN" | "WOMEN";
 
 const AVATAR_SEEDS = {
@@ -98,29 +105,29 @@ const verifyOTP = (inputOtp: string, phone: string): boolean => {
 };
 
 export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
-  const [mode, setMode] = useState<LoginMode>('CUSTOMER');
+  const [mode, setMode] = useState<LoginMode>("CUSTOMER");
   const [recentUsers, setRecentUsers] = useState<User[]>([]);
   const [showNewUserForm, setShowNewUserForm] = useState(false);
-  
+
   // Customer State
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [walkInCode, setWalkInCode] = useState('');
-  const [selectedAvatar, setSelectedAvatar] = useState<string>('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [walkInCode, setWalkInCode] = useState("");
+  const [selectedAvatar, setSelectedAvatar] = useState<string>("");
   const [selectedGender, setSelectedGender] = useState<AvatarGender>("MEN");
 
   // Validation State
   const [emailError, setEmailError] = useState("");
   const [phoneError, setPhoneError] = useState("");
-  
+
   // Partner State
-  const [adminId, setAdminId] = useState('');
-  const [adminKey, setAdminKey] = useState('');
+  const [adminId, setAdminId] = useState("");
+  const [adminKey, setAdminKey] = useState("");
 
   // OTP State
   const [isOtpStep, setIsOtpStep] = useState(false);
-  const [otp, setOtp] = useState('');
+  const [otp, setOtp] = useState("");
   const [pendingLoginUser, setPendingLoginUser] = useState<User | null>(null);
   const [otpSending, setOtpSending] = useState(false);
   const [otpError, setOtpError] = useState("");
@@ -201,7 +208,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
 
   const handleVerifyOtp = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (otp.length === 4) {
       const finalPhone = pendingLoginUser?.phone || phone;
 
@@ -231,9 +238,9 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
   };
 
   const removeUser = (e: React.MouseEvent, email: string) => {
-      e.stopPropagation();
-      StorageService.removeRecentUser(email);
-      setRecentUsers(StorageService.getRecentUsers());
+    e.stopPropagation();
+    StorageService.removeRecentUser(email);
+    setRecentUsers(StorageService.getRecentUsers());
   };
 
   return (

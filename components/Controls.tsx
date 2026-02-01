@@ -424,70 +424,96 @@ export const Controls: React.FC<ControlsProps> = ({
   );
 
   return (
-    <div className="w-full bg-white border-t border-brand-200 p-4 md:p-6 shadow-[0_-4px_20px_-5px_rgba(0,0,0,0.1)] z-40 relative">
+    <div className="fixed bottom-0 left-0 right-0 w-full bg-white border-t border-brand-200 p-4 md:p-6 shadow-[0_-4px_20px_-5px_rgba(0,0,0,0.1)] z-40">
       <div className="max-w-4xl mx-auto flex flex-col gap-4 md:gap-6">
-        
         {/* Top Row: Controls Grid */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 h-28 md:h-32">
-           <BentoCell label="Gender" value={gender} icon={User} type="gender" />
-           <BentoCell label="Length" value={category} icon={Ruler} type="category" />
-           <BentoCell label="Style" value={style} icon={Scissors} type="style" />
-           <BentoCell 
-              label="Color" 
-              value={isCustomColor ? 'Custom' : colorLabel} 
-              icon={Palette} 
-              type="color" 
-              customColorHex={isCustomColor ? customHex : COLORS.find((c: any) => c.label === colorLabel)?.hex}
-           />
-           <div className="hidden md:block">
-              <BentoCell label="Presets" value="Quick Styles" icon={LayoutTemplate} type="presets" />
-           </div>
-           
-           <div className="md:hidden col-span-2">
-                <BentoCell label="Presets" value="Quick Styles" icon={LayoutTemplate} type="presets" />
-           </div>
+          <BentoCell label="Gender" value={gender} icon={User} type="gender" />
+          <BentoCell
+            label="Length"
+            value={category}
+            icon={Ruler}
+            type="category"
+          />
+          <BentoCell label="Style" value={style} icon={Scissors} type="style" />
+          <BentoCell
+            label="Color"
+            value={isCustomColor ? "Custom" : colorLabel}
+            icon={Palette}
+            type="color"
+            customColorHex={
+              isCustomColor
+                ? customHex
+                : COLORS.find((c: any) => c.label === colorLabel)?.hex
+            }
+          />
+          <div className="hidden md:block">
+            <BentoCell
+              label="Presets"
+              value="Quick Styles"
+              icon={LayoutTemplate}
+              type="presets"
+            />
+          </div>
+
+          <div className="md:hidden col-span-2">
+            <BentoCell
+              label="Presets"
+              value="Quick Styles"
+              icon={LayoutTemplate}
+              type="presets"
+            />
+          </div>
         </div>
 
         {/* Bottom Row: Actions */}
         <div className="flex items-center gap-3">
-            <div className="flex bg-brand-50 rounded-2xl p-1 border border-brand-100 shrink-0">
-                <button onClick={onUndo} disabled={!canUndo} className="p-3 hover:bg-white rounded-xl disabled:opacity-30 transition-all text-brand-900">
-                    <Undo2 className="w-5 h-5" />
-                </button>
-                <button onClick={onRedo} disabled={!canRedo} className="p-3 hover:bg-white rounded-xl disabled:opacity-30 transition-all text-brand-900">
-                    <Redo2 className="w-5 h-5" />
-                </button>
-            </div>
-
-            <button 
-                onClick={handleSuggest}
-                disabled={isLoading}
-                className="flex items-center justify-center p-3 bg-brand-100 text-brand-600 rounded-2xl hover:bg-brand-200 transition-colors disabled:opacity-50 shrink-0"
-                title="Surprise Me"
-            >
-                <Lightbulb className="w-5 h-5" />
-            </button>
-
+          <div className="flex bg-brand-50 rounded-2xl p-1 border border-brand-100 shrink-0">
             <button
-                onClick={handleGenerateClick}
-                disabled={isLoading}
-                className={`
-                    flex-1 h-14 md:h-auto rounded-2xl font-serif text-lg flex items-center justify-center gap-3 shadow-xl transition-all
-                    ${isLoading ? 'bg-brand-100 text-brand-400 cursor-not-allowed' : 'bg-brand-900 text-white hover:bg-black hover:scale-[1.02]'}
-                `}
+              onClick={onUndo}
+              disabled={!canUndo}
+              className="p-3 hover:bg-white rounded-xl disabled:opacity-30 transition-all text-brand-900"
             >
-                {isLoading ? (
-                    <>
-                        <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
-                        <span>Crafting...</span>
-                    </>
-                ) : (
-                    <>
-                        <Sparkles className="w-5 h-5" />
-                        <span>Generate</span>
-                    </>
-                )}
+              <Undo2 className="w-5 h-5" />
             </button>
+            <button
+              onClick={onRedo}
+              disabled={!canRedo}
+              className="p-3 hover:bg-white rounded-xl disabled:opacity-30 transition-all text-brand-900"
+            >
+              <Redo2 className="w-5 h-5" />
+            </button>
+          </div>
+
+          <button
+            onClick={handleSuggest}
+            disabled={isLoading}
+            className="flex items-center justify-center p-3 bg-brand-100 text-brand-600 rounded-2xl hover:bg-brand-200 transition-colors disabled:opacity-50 shrink-0"
+            title="Surprise Me"
+          >
+            <Lightbulb className="w-5 h-5" />
+          </button>
+
+          <button
+            onClick={handleGenerateClick}
+            disabled={isLoading}
+            className={`
+                    flex-1 h-14 md:h-auto rounded-2xl font-serif text-lg flex items-center justify-center gap-3 shadow-xl transition-all
+                    ${isLoading ? "bg-brand-100 text-brand-400 cursor-not-allowed" : "bg-brand-900 text-white hover:bg-black hover:scale-[1.02]"}
+                `}
+          >
+            {isLoading ? (
+              <>
+                <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
+                <span>Crafting...</span>
+              </>
+            ) : (
+              <>
+                <Sparkles className="w-5 h-5" />
+                <span>Generate</span>
+              </>
+            )}
+          </button>
         </div>
       </div>
     </div>
